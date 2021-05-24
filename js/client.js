@@ -26,9 +26,10 @@ const append = async (name, message, position) => {
         messageContainer.append(messageElement);
         resolve(position);
     }).then(position => {
+        console.log(position == 'left');
         let myDiv = document.getElementById("scrollDown");
         myDiv.scrollTop = myDiv.scrollHeight;
-         if(position == 'left') {
+        if(position == 'left') {
             audio.play();
         }
     });
