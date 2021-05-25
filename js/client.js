@@ -1,9 +1,9 @@
 const socket = io('https://superchat-apps.herokuapp.com/');
 
+const emojiSuggestion = document.getElementById('emojiSug');
 const form = document.getElementById('send-container');
 const messageInput = document.getElementById('messageInp');
 const messageContainer = document.querySelector('.container');
-const emojiSuggestion = document.getElementById('emojiSug');
 
 let audio;
 let model;
@@ -26,7 +26,6 @@ const append = async (name, message, position) => {
         messageContainer.append(messageElement);
         resolve(position);
     }).then(position => {
-        console.log(position == 'left');
         let myDiv = document.getElementById("scrollDown");
         myDiv.scrollTop = myDiv.scrollHeight;
         if(position == 'left') {
@@ -37,7 +36,11 @@ const append = async (name, message, position) => {
 
 form.addEventListener('submit', (e) => {
     e.preventDefault();
-    const message = messageInput.value;
+    let message = messageInput.value;
+    message = message.trim();
+    if(message === "") {
+        return;
+    }
     append('You', `${message}`, 'right');
     socket.emit('send', message);
     messageInput.value = "";
@@ -65,7 +68,7 @@ socket.on('left', name => {
 
 const addEmoji = (e) => {
     let element = document.getElementById('emojiSug');
-    messageInput.value += element.innerText;
+    messageInput.value += ` ${element.innerText} `;
 };
 
 // model
@@ -76,7 +79,6 @@ async function run(){
 	// console.log(model.summary());
 	console.log('model loaded');
 
-    // console.log(wordIndex);
     fetch("word_index.json")
         .then(response => response.json())
         .then(data => {
@@ -113,6 +115,8 @@ async function find() {
         }
     }
 
+    // console.log(text);
+
     const tensor = tf.expandDims(text);
 
 	const result = model.predict(tensor);
@@ -125,6 +129,6 @@ async function find() {
 
 setInterval(() => {
     find();
-}, 1000);
+}, 500);
 
 document.addEventListener('DOMContentLoaded', run);
