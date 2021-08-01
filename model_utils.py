@@ -1,5 +1,5 @@
 import numpy as np
-import pandas as pb; 
+import pandas as pd; 
 
 # reading the glove vector ... 
 # filepath is the path where glove vector is present
