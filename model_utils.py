@@ -57,7 +57,7 @@ def predict(X, Y, W, b, word_to_vec_map):
             avg += word_to_vec_map[w]
         avg = avg / len(words)
         # forward propagation
-        z = np.dot(W, avg) + b
+        Z = np.dot(W, avg) + b
         A = softmax(Z)
         pred[j] = np.argmax(A)
 
