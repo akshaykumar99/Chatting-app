@@ -73,7 +73,7 @@ h1 {
 }
 
 #emojiSug {
-    width: 7%;
+    width: 5%;
     border: 2px solid rgb(0, 193, 207);
     border-radius: 20px;
     padding: 9px;
@@ -83,7 +83,7 @@ h1 {
 }
 
 .btn {
-    width: 10%;
+    width: 15%;
     cursor: pointer;
     border: 2px solid rgb(0, 193, 207);
     border-radius: 6px;
